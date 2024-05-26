@@ -90,3 +90,4 @@ simulationThread.start();
 - The body `{ operationsQueue.addSimulation(totalNumberOfSimulation); }` contains the code that the thread will execute, which is a call to the `addSimulation` method on the `operationsQueue` object.
 
 This lambda expression provides a succinct and readable way to specify the task that the new thread should execute.
+
