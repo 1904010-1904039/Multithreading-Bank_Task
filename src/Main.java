@@ -1,14 +1,15 @@
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         System.out.println("Hello and welcome!");
         System.out.printf("Initializing banking system..");
 
         int totalNumberOfSimulation = 10;
 
+        //creating object of the two class
         OperationsQueue operationsQueue = new OperationsQueue();
         Bank bank = new Bank("123", operationsQueue);
-
+        
         // Thread for simulation
         System.out.println("Initializing simulation....");
         // lambda expression which executes -> {}
@@ -32,6 +33,11 @@ public class Main {
         });
         withdrawThread.start();
         System.out.println("completed");
+
+
+        // simulationThread.join();
+        // depositThread.join();
+        // withdrawThread.join();
 
         //Main thread completion status
         System.out.println("completed");

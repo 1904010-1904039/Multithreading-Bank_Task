@@ -8,10 +8,13 @@ public class OperationsQueue {
 
     public void addSimulation(int totalSimulation) {
 
-        // Add 50 random numbers in the operations list. The number will be range from -100 to 100. It cannot be zero.
+        // Add 50 random numbers in the `operations` list. The number will be range from -100 to 100. It cannot be zero.
             for (int i = 0; i < totalSimulation; i++) {
+
+                // Math.Random() generates a ranomd number between 0.0 to 1.0
                 int random = (int) (Math.random() * 200) - 100;
                 if (random != 0) {
+                    //cs
                     operations.add(random);
                 }
                 System.out.println(i + ". New operation added: " + random);
@@ -24,19 +27,22 @@ public class OperationsQueue {
             }
             operations.add(-9999);
     }
-    public void add(int amount) {
+    public synchronized void add(int amount) {
+        // appends the value to the end of the list.
         operations.add(amount);
     }
 
-    public synchronized int getNextItem() {
+    public synchronized int getNextItem() { //syncronized method
         // add a small delay to simulate the time taken to get the next operation.
         while(operations.isEmpty()) {
             try {
+                System.out.println("Item is empty, infinite while loop");
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        // returns the first item form the operationList
         return operations.remove(0);
     }
 }
