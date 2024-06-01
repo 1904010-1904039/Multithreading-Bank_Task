@@ -3,7 +3,6 @@ import java.util.ArrayList;;
 public class OperationsQueue {
     
     // Immutability of Reference: The final keyword means that the reference to the List<Integer> object stored in the operations variable cannot be changed after it is assigned. In other words, you cannot reassign operations to point to a different List object.
-
     private volatile List<Integer> operations = new ArrayList<>();
 
     public void addSimulation(int totalSimulation) {
@@ -14,7 +13,7 @@ public class OperationsQueue {
                 // Math.Random() generates a ranomd number between 0.0 to 1.0
                 int random = (int) (Math.random() * 200) - 100;
                 if (random != 0) {
-                    //cs
+                    // cs
                     operations.add(random);
                 }
                 System.out.println(i + ". New operation added: " + random);
@@ -43,14 +42,14 @@ public class OperationsQueue {
             }
         }
 
-        // returns the first item form the operationList
-        System.out.printf(who + "=>"  +"List: " + operations + "\n");
+        // returns  the operationList
+        System.out.printf(who + " => "  +"List: " + operations + "\n");
 
         // return and remove the item from the array
         // cs portion
 
         int value = operations.get(0);
-
+        
         operations.remove(0);
 
         return value;

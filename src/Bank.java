@@ -53,20 +53,9 @@ public class Bank {
                 break;
             }
 
-            // if(balance+amount<0){
-
-            //     System.out.println("Not enough balance to withdraw "+amount+" (Withdraw func)");
-            //     continue;
-            // }
-
-            // if (amount<0) { // enough money to withdraw the amount.
-            //     balance =  balance + amount;
-            //     System.out.println("Withdrawn: " + amount + " Balance: " + balance);
-            // }
-
             if(amount < 0) { // amount is negative, So withdraw money
                 if(balance + amount < 0) { // Not enough money
-                    System.out.println("Not enough balance = " + balance + "to withdraw = "+amount+" (Withdraw func)");
+                    System.out.println("Not enough balance = " + balance + " to withdraw = "+amount+" (Withdraw func)");
                 }
                 else { // enough money
 
