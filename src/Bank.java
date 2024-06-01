@@ -5,8 +5,9 @@ public class Bank {
     OperationsQueue operationsQueue; //object of OperationQueue class
 
     //initial balance
-    int balance = 0;
+    volatile int balance = 0;
 
+    //constructor 
     public Bank(String accountNumber, OperationsQueue operationsQueue) {
         this.accountNumber = accountNumber;
         this.operationsQueue = operationsQueue;
@@ -15,18 +16,23 @@ public class Bank {
     // A deposit function that will run in parallel on a separate thread. It will be a loop where in each iteration, it read the amount from the operationQueue and deposit the amount.
     public void deposit() {
         while (true) {
-
-            // extracting the first value of the operationqueue list
-            int amount = operationsQueue.getNextItem();
+            System.out.println("Calling getNextItem from deposite");
+            //cs portion
+            int amount = operationsQueue.getNextItem("deposite");
+            //
             if(amount == -9999) {
                 break;
             }
             // if amount is positive, we will add it to the balance
             if (amount>0) {
+                //cs portion
                 balance =  balance + amount;
+                // 
                 System.out.println("Deposited: " + amount + " Balance: " + balance);
             }
             else{ //extracted amount is negative. Cann't deposit a negative amount
+
+                //cs portion
                 operationsQueue.add(amount);
                 System.out.println("operation added back "+amount+" (deposite func)");
             }
@@ -38,7 +44,10 @@ public class Bank {
     public void withdraw() {
         while (true) {
             // extracting the first value of the operationqueue list
-            int amount = operationsQueue.getNextItem();
+            System.out.println("Calling getNextItem from withdraw");
+
+            // cs
+            int amount = operationsQueue.getNextItem("withdraww");
             //base case
             if(amount == -9999) {
                 break;
@@ -57,14 +66,18 @@ public class Bank {
 
             if(amount < 0) { // amount is negative, So withdraw money
                 if(balance + amount < 0) { // Not enough money
-                    System.out.println("Not enough balance to withdraw "+amount+" (Withdraw func)");
+                    System.out.println("Not enough balance = " + balance + "to withdraw = "+amount+" (Withdraw func)");
                 }
                 else { // enough money
+
+                    // cs
                     balance =  balance + amount;
                     System.out.println("Withdrawn: " + amount + " Balance: " + balance);
                 }
             }
             else{ // amount is positive. Can't withdraw a positive amount. So add back again
+
+                // cs 
                 operationsQueue.add(amount);
                 System.out.println("operation added back "+amount+" (withdraw funct)");
             }

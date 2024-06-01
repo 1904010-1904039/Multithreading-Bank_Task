@@ -3,8 +3,8 @@ import java.util.ArrayList;;
 public class OperationsQueue {
     
     // Immutability of Reference: The final keyword means that the reference to the List<Integer> object stored in the operations variable cannot be changed after it is assigned. In other words, you cannot reassign operations to point to a different List object.
-    // ArrayList<>() -> is a resizable array implementation of the List interface.
-    private final List<Integer> operations = new ArrayList<>();
+
+    private volatile List<Integer> operations = new ArrayList<>();
 
     public void addSimulation(int totalSimulation) {
 
@@ -32,7 +32,7 @@ public class OperationsQueue {
         operations.add(amount);
     }
 
-    public synchronized int getNextItem() { //syncronized method
+    public synchronized int getNextItem(String who) { //syncronized method
         // add a small delay to simulate the time taken to get the next operation.
         while(operations.isEmpty()) {
             try {
@@ -42,7 +42,17 @@ public class OperationsQueue {
                 e.printStackTrace();
             }
         }
+
         // returns the first item form the operationList
-        return operations.remove(0);
+        System.out.printf(who + "=>"  +"List: " + operations + "\n");
+
+        // return and remove the item from the array
+        // cs portion
+
+        int value = operations.get(0);
+
+        operations.remove(0);
+
+        return value;
     }
 }

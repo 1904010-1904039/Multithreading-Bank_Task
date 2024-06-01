@@ -1,3 +1,5 @@
+# Java Syncronized
+
 The `synchronized` keyword in Java is used to control access to a critical section of code or an object in order to prevent race conditions and ensure thread safety. It can be applied to methods or blocks of code to restrict access so that only one thread can execute the synchronized code at a time. 
 
 ### Synchronized Methods

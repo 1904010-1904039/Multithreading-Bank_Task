@@ -2,7 +2,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
 
         System.out.println("Hello and welcome!");
-        System.out.printf("Initializing banking system..");
+        System.out.println("Initializing banking system..");
 
         int totalNumberOfSimulation = 10;
 
@@ -19,20 +19,20 @@ public class Main {
         simulationThread.start(); //starting the thread
 
         // thread for deposit system
-        System.out.printf("Initializing deposit systen....");
+        System.out.println("Initializing deposit systen....");
         Thread depositThread = new Thread(() -> {
             bank.deposit();
         });
         depositThread.start();
-        System.out.println("completed");
+        System.out.println("Deposit completed");
 
         //thread for withdrawo system
-        System.out.printf("Initializing withdraw systen....");
+        System.out.println("Initializing withdraw systen....");
         Thread withdrawThread = new Thread(() -> {
             bank.withdraw();
         });
         withdrawThread.start();
-        System.out.println("completed");
+        System.out.println("withdraw completed");
 
 
         // simulationThread.join();
@@ -40,6 +40,6 @@ public class Main {
         // withdrawThread.join();
 
         //Main thread completion status
-        System.out.println("completed");
+        System.out.println("Main thread completed");
     }
 }
