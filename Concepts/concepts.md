@@ -2,7 +2,7 @@
 
 ## Lambda expression
 
-A lambda expression in Java is a concise way to represent an anonymous function (a function without a name) that can be passed as an argument to a method or stored in a variable. It was introduced in Java 8 and provides a clear and concise way to write instances of single-method interfaces (functional interfaces).
+A `lambda expression` in Java is a concise way to represent an anonymous function (a function without a name) that can be passed as an argument to a method or stored in a variable. It was introduced in Java 8 and provides a clear and concise way to write instances of single-method interfaces (functional interfaces).
 
 ### Syntax of Lambda Expressions
 
@@ -90,3 +90,4 @@ simulationThread.start();
 - The body `{ operationsQueue.addSimulation(totalNumberOfSimulation); }` contains the code that the thread will execute, which is a call to the `addSimulation` method on the `operationsQueue` object.
 
 This lambda expression provides a succinct and readable way to specify the task that the new thread should execute.
+
