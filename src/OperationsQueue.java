@@ -31,11 +31,11 @@ public class OperationsQueue {
         operations.add(amount);
     }
 
-    public synchronized int getNextItem(String who) { //syncronized method
+    public synchronized int getNextItem(String who) {
         // add a small delay to simulate the time taken to get the next operation.
         while(operations.isEmpty()) {
             try {
-                System.out.println("Item is empty, infinite while loop");
+                System.out.println("Item is empty, infinite while loop due to called by => " + who);
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -46,8 +46,6 @@ public class OperationsQueue {
         System.out.printf(who + " => "  +"List: " + operations + "\n");
 
         // return and remove the item from the array
-        // cs portion
-
         int value = operations.get(0);
         
         operations.remove(0);
