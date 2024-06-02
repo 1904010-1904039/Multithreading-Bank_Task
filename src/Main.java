@@ -35,7 +35,7 @@ public class Main {
         System.out.println("withdraw completed");
 
 
-        // simulationThread.join();
+        //simulationThread.join();
         // depositThread.join();
         // withdrawThread.join();
 
