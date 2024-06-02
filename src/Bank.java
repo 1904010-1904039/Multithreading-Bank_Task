@@ -1,4 +1,5 @@
-
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 public class Bank {
 
     String accountNumber;
@@ -7,6 +8,7 @@ public class Bank {
 
     //initial balance
     volatile int balance = 0;
+    Lock lock = new ReentrantLock();
 
     //constructor 
     public Bank(String accountNumber, OperationsQueue operationsQueue) {
@@ -27,17 +29,16 @@ public class Bank {
             // if amount is positive, we will add it to the balance
             if (amount>0) {
                 //cs portion
-                
-                balance =  balance + amount;
-                System.out.println("Deposited: " + amount + " Balance: " + balance);
-                
+                lock.lock(); // Acquiring the lock before updating balance(volatile)
+                 try {
+                     balance += amount;
+                     System.out.println("Deposited: " + amount + " Balance: " + balance);
+                 } finally {
+                     lock.unlock(); // Releasing the lock after updating balance
+                 }
             }
             else{ //extracted amount is negative. Cann't deposit a negative amount
-
-                //cs portion
-                operationsQueue.add(amount);
-                System.out.println("Operation added back "+amount+" by => (deposite func)");
-                
+                System.out.println("Invalid deposit amount: " + amount);  
             }
         }
     }
@@ -56,25 +57,26 @@ public class Bank {
             }
 
             if(amount < 0) { // amount is negative, So withdraw money
-                if(balance + amount < 0) { // Not enough money
-                    System.out.println("Not enough balance = " + balance + " to withdraw = " + amount + " (Withdraw func)");
-                }
-                else { // enough money
-
-                    balance =  balance + amount;
-                        // jhamela 
-                    System.out.println("Withdrawn: " + amount + " Balance: " + balance);
-                    
+                lock.lock();
+                try {
+                    if(balance + amount < 0) { // Not enough money
+                        System.out.println("Not enough balance = " + balance + " to withdraw = " + amount + " (Withdraw func)");
+                    }
+                    else { // enough money
+    
+                        balance =  balance + amount;
+                            // jhamela 
+                        System.out.println("Withdrawn: " + amount + " Balance: " + balance);
+                        
+                    }
+                } finally {
+                    lock.unlock();
                 }
             }
-            else{ // amount is positive. Can't withdraw a positive amount. So add back again
+            else{ // amount is positive. Can't withdraw a positive amount. Give warning now 
 
-                // cs 
-                
-                operationsQueue.add(amount);
-                System.out.println("operation added back "+amount+" by => (withdraw func)");
-                
-                
+                System.out.println("Invalid withdraw amount: " + amount);
+  
             }
         }
     }
